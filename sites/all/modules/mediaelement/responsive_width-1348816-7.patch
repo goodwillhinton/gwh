@@ -1,0 +1,44 @@
+diff --git a/mediaelement.module b/mediaelement.module
+index 822941d..3303718 100644
+--- a/mediaelement.module
++++ b/mediaelement.module
+@@ -134,12 +134,12 @@ function mediaelement_field_formatter_view($entity_type, $entity, $field, $insta
+     $js_settings['opts'] = array();
+     $js_settings['controls'] = (bool)$settings['controls'];
+     if ($display['type'] == 'mediaelement_video') {
+-      $js_settings['opts']['videoHeight'] = (int)$settings['height'];
+-      $js_settings['opts']['videoWidth'] = (int)$settings['width'];
++      $js_settings['opts']['videoHeight'] = $settings['height'];
++      $js_settings['opts']['videoWidth'] = $settings['width'];
+     }
+     elseif ($display['type'] == 'mediaelement_audio') {
+-      $js_settings['opts']['audioHeight'] = (int)$settings['height'];
+-      $js_settings['opts']['audioWidth'] = (int)$settings['width'];
++      $js_settings['opts']['audioHeight'] = $settings['height'];
++      $js_settings['opts']['audioWidth'] = $settings['width'];
+     }
+ 
+     $class = 'mediaelement-formatter-identifier-' . time() . '-' . $id++;
+@@ -222,13 +222,13 @@ function mediaelement_field_formatter_settings_form($field, $instance, $view_mod
+   );
+ 
+   $element['width'] = array(
+-    '#title' => t('Width'),
++    '#title' => t('Width (Specify using px or 100%)'),
+     '#type' => 'textfield',
+     '#default_value' => $settings['width'],
+   );
+ 
+   $element['height'] = array(
+-    '#title' => t('Height'),
++    '#title' => t('Height (Specify using px or 100%)'),
+     '#type' => 'textfield',
+     '#default_value' => $settings['height'],
+   );
+@@ -254,5 +254,5 @@ function mediaelement_field_formatter_settings_form($field, $instance, $view_mod
+ function mediaelement_field_formatter_settings_summary($field, $instance, $view_mode) {
+   $display = $instance['display'][$view_mode];
+   $settings = $display['settings'];
+-  return t('Width: @width px, Height: @height px', array('@width' => $settings['width'], '@height' => $settings['height']));
++  return t('Width: @width, Height: @height', array('@width' => $settings['width'], '@height' => $settings['height']));
+ }
